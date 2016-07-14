@@ -7,10 +7,10 @@ const db           = require('../models/task');
 /* convenience method for sending */
 const sendJSONresp = (req,res)=>res.json(res.rows)
 
-tasks.route('/:id')
-  .get((req,res)=>res.send(`showed task ${req.params.id}`))
-  .put((req,res)=>res.send(`edited task ${req.params.id}`))
-  .delete((req,res)=>res.send(`deleted task ${req.params.id}`))
+tasks.route('/:taskID')
+  .get((req,res)=>res.send(`showed task ${req.params.taskID}`))
+  .put((req,res)=>res.send(`edited task ${req.params.taskID}`))
+  .delete((req,res)=>res.send(`deleted task ${req.params.taskID}`))
 
 tasks.route('/')
   .get((req,res)=>res.send('show tasks'))

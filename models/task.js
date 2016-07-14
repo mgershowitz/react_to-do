@@ -46,11 +46,54 @@ module.exports = {
         console.error('ERROR in ADDING TASK!', error);
       })
   },
-  /* PUT /tasks/:id */
-  updateTask(req, res, next) {},
+  /* PUT /tasks/:taskID */
+  updateTask(req, res, next) {
+
+    // tID is invented here
+    req.body.tID = Number.parseInt(req.params.taskID);
+
+
+
+    req.body.completed = !!req.body.completed;
+
+    _db.one(
+      `UPDATE tasks SET
+      task_name = $/task_name/,
+      task_desc = $/task_desc/,
+      completed = $/completed/,
+      task_time_start = $/task_time_start/,
+      task_time_end = $/task_time_end/,
+      WHERE task_id = $/tID/
+      returning *;  `,
+      req.body)
+
+      .then( task=>{
+          console.log('ADDED UPDATED SUCCESSFULLY');
+          res.rows = task;
+          next();
+        })
+        .catch(error=>{
+          console.error('ERROR in UPDATING TASK!', error);
+        })
+  },
 
   /* DELETE /tasks/:id */
-  deleteTask(req, res, next) {},
+  deleteTask(req, res, next) {
+    const tID = Number.parseInt(req.params.taskID);
+
+    _db.none(`
+      DELETE FROM tasks
+      WHERE task_id = $1
+      `, [tID])
+
+     .then( ()=>{
+        console.log('DELETE COMPLETED');
+        next();
+      })
+      .catch(error=>{
+        console.error('ERROR in DELETING TASK!', error);
+      })
+  },
 }
 
 
