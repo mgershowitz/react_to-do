@@ -23,7 +23,9 @@ module.exports = {
         next()
       })
       .catch( error=>{
+
         console.error('Error ', error);
+        throw error;
       })
   },
 
@@ -32,10 +34,8 @@ module.exports = {
   addTask(req, res, next) {
     console.log('===addTask===',req.body)
     _db.any(
-      `INSERT INTO
-      tasks (task_name, task_desc)
-      VALUES ( $/name/, $/desc/ )
-      returning *;` , req.body
+      `INSERT INTO tasks (task_name, task_desc) VALUES ($1, $2) returning *;` ,
+      [ req.body.name , req.body.desc ]
       )
       .then( task=>{
         console.log('ADDED TASK SUCCESSFUL');
@@ -44,6 +44,7 @@ module.exports = {
       })
       .catch(error=>{
         console.error('ERROR in ADDING TASK!', error);
+        throw error;
       })
   },
   /* PUT /tasks/:taskID */
@@ -74,6 +75,7 @@ module.exports = {
         })
         .catch(error=>{
           console.error('ERROR in UPDATING TASK!', error);
+          throw error;
         })
   },
 
@@ -92,6 +94,7 @@ module.exports = {
       })
       .catch(error=>{
         console.error('ERROR in DELETING TASK!', error);
+        throw error;
       })
   },
 }
