@@ -1,8 +1,11 @@
 const express     = require('express');
 const tasks       = express.Router();
 
-let taskData = [];
-//const sendString = (req,res)=>res.send(`showed task ${req.params.id}`)
+/* get the database middleware */
+const db           = require('../models/task');
+
+/* convenience method for sending */
+const sendJSONresp = (req,res)=>res.json(res.rows)
 
 tasks.route('/:id')
   .get((req,res)=>res.send(`showed task ${req.params.id}`))
