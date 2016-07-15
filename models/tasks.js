@@ -28,10 +28,10 @@ module.exports = {
   addTask(req,res,next) {
     console.log('=====', req.body)
     _db.any(
-      `INSERT INFO
-      tasks (taskname, task_desc)
+      `INSERT INTO
+      tasks (task_name, task_desc)
       VALUES ($/name/, $/desc/)
-      returing *;`, req.body
+      returning *;`, req.body
     )
     .then(task => {
       console.log('Added task successfully');
@@ -49,13 +49,11 @@ module.exports = {
     req.body.completed = !!req.body.completed;
     _db.one(
       `UPDATE tasks
-      SET task_name = $/task_name/
-      task_desc = $/task_desc/
+      SET task_name = $/task_name/,
+      task_desc = $/task_desc/,
       completed = $/completed/
-      task_start_time = $/task_start_time/
-      task_stop_time = $/task_stop_time/
       WHERE task_id = $/tID/
-      returing *;`, req.body
+      returning * ;`, req.body
     )
     .then(task => {
       console.log('Update task successfully');
