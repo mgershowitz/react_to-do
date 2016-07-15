@@ -19,6 +19,7 @@ Since we're only building an API and NOT serving/receiving HTML, we'll only need
 1. `npm install body-parser --save`
 1. Inside `server.js`, require `body-parser`.
 1. Add the following block to activate it:
+
 ```javascript
 // parse incoming json
 app.use( bodyParser.json()); 
