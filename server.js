@@ -9,23 +9,19 @@ const path        = require('path')
 const bodyParser  = require('body-parser')
 const app         = express()
 const taskRoute   = require('./routes/tasks')
-const port        = process.argv[2] || process.env.PORT || 3009
+const port        = process.argv[2] || process.env.PORT || 3000
 
-app.use(morgan('dev'))
-app.set(express.static(path.join(__dirname,'dist')))
+app.use(morgan( DEV ? 'dev' : 'common'))
 app.use(bodyParser.json());
 
-app.listen(port, ()=>{
-  console.log('Server chillin at ', port)
-})
 
 
 app.use('/tasks', taskRoute)
+app.use(express.static(path.join(__dirname,'dist')))
 
 
-app.get('/', (req,res)=>{
-  res.send('home')
+
+
+app.listen(port, ()=>{
+  console.log('Server maxin\' and relaxin\' at ', port)
 })
-
-
-
