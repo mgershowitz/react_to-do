@@ -15,7 +15,7 @@ export default function TaskList(props){
 
             <strong>{props.list[key].task_name}</strong> {props.list[key].task_desc}
 
-            {/* Iterate over the children and bind their clicks to the key  */}
+            {/* Iterate over the children and bind their clicks to this key  */}
             {React.Children.map(props.children, child=>
               React.cloneElement(child, {
                 onClick: event=>{
