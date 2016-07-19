@@ -9,7 +9,7 @@
   "private": true,
   "scripts": {
     "clean": "rm -rf dist && rm -rf node_modules",
-    "preinstall": "npm run clean -s && npm i --only=dev --ignore-scripts && webpack -p && rm -rf node_modules && npm i --ignore-scripts",
+    "preinstall": "scripts/deployReact.sh",
     "start": "node server.js",
     "watch": "webpack -d --watch"
   },
