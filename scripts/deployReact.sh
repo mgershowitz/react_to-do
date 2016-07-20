@@ -17,9 +17,4 @@ webpack -p
 # Kill the dev node modules
 rm -rf node_modules
 
-# rebuild the node_modules in the prod context
-npm i --ignore-scripts
-
-# full cleanup
-rm -rf db src scripts starter_resources
 

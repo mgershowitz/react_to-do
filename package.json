@@ -9,7 +9,8 @@
   "private": true,
   "scripts": {
     "clean": "rm -rf dist && rm -rf node_modules",
-    "preinstall": "scripts/deployReact.sh",
+    "heroku-prebuild": "scripts/deployReact.sh",
+    "heroku-postbuild": "rm -rf db src scripts starter_resources webpack.config.js .babelrc .gitignore README.md LICENSE",
     "start": "node server.js",
     "watch": "webpack -d --watch"
   },
