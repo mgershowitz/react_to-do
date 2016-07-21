@@ -15,16 +15,11 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.optimize.UglifyJsPlugin({
+/*    new webpack.optimize.UglifyJsPlugin({
       compress:{
         warnings: true
       }
-    }),
-    new webpack.DefinePlugin({
-      'process.env':{
-        'NODE_ENV': JSON.stringify('production')
-      }
-    }),
+    }),*/
     new webpack.optimize.CommonsChunkPlugin('/js/common.js'),
     new HtmlWebpackPlugin({
       title: 'Tasks',
@@ -39,7 +34,6 @@ module.exports = {
   ],
 
   module : {
-    include: path.join(__dirname, 'src'),
     loaders: [
       { test: /\.css$/,  loader: ExtractTextPlugin.extract('style-loader', 'css-loader') },
       { test: /\.(png|gif|jpg)$/,  loader: 'file-loader?name=/images/[name].[ext]' },
