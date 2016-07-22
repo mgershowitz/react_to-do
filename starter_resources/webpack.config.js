@@ -14,14 +14,9 @@ module.exports = {
     path: BUILD_DIR,
     filename: '/js/[name].js',
   },
-  cache: true,
-  debug: true,
-  devtool: 'eval-source-map',
-  stats: {
-    colors: true,
-    reasons: true
-  },
+
   plugins: [
+    new webpack.optimize.CommonsChunkPlugin('/js/common.js'),
     new HtmlWebpackPlugin({
       title: 'Tasks',
       xhtml: true,
@@ -43,7 +38,8 @@ module.exports = {
       {
         test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url-loader?limit=100&mimetype=application/font-woff&name=/fonts/[name].[ext]'
-      },       {
+      },
+      {
         test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url-loader?limit=100&mimetype=application/octet-stream&name=/fonts/[name].[ext]'
       },

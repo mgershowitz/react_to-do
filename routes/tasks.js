@@ -1,19 +1,23 @@
-'use strict'
-const express = require('express')
-const tasks   = express.Router();
-const db      = require('../models/tasks')
 
+const express     = require('express');
+const tasks       = express.Router();
+const jwt         = require('express-jwt');
+
+/* get the database middleware */
+const db = require('../models/task')
+
+
+/* convenience method for sending */
 const sendJSONresp = (req,res)=>res.json(res.rows)
+
 
 tasks.route('/:taskID')
   .put(db.updateTask, sendJSONresp)
-  .delete(db.deleteTask, ( req,res ) => res.send( req.params.taskID ))
+  .delete(db.deleteTask, (req,res)=>res.send(req.params.taskID))
 
 tasks.route('/')
-  .get(db.getTasks, sendJSONresp)
-  .post(db.addTask, sendJSONresp)
-
-
+  .get( db.getTasks, sendJSONresp)
+  .post( db.addTask, sendJSONresp)
 
 
 module.exports = tasks;
