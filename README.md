@@ -29,3 +29,7 @@ _Note:_ To keep complexity down, there is only ONE user for this application.
  4. As a User, I expect the tasks should be sorted by complete/incomplete, and always be sorted by date/time.
  5. As a User, I should be able to delete any completed tasks.
  5. As a User, my tasks should persist, such that my previous tasks should display upon each visit.
+
+## Licensing
+ 1. All content is licensed under a CC­BY­NC­SA 4.0 license.
+ 2. All software code is licensed under GNU GPLv3. For commercial use or alternative licensing, please contact legal@ga.co.

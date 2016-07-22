@@ -26,7 +26,8 @@ Create a `/db/schema.sql` file which will be used to create all the tables
 in your database.
 
 ## Part 4
-Seed your database with some dummy tasks for testing.
+Create a `/db/seed.sql` that will seed your database with some dummy tasks for testing.
+_Note_: Don't forget about dropping the table if it exists
 
 ## Part 5
 Test and validate that your DB is working as expected. 
