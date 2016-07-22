@@ -13,7 +13,7 @@
     "heroku-prebuild": "scripts/deployReact.sh",
     "heroku-postbuild": "rm -rf db src scripts starter_resources webpack.config.js .babelrc .gitignore README.md LICENSE",
     "start": "node server.js",
-    "watch": "webpack -d --watch"
+    "watch": "webpack -d --watch --progress --colors"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
   "dependencies": {
     "bcrypt": "^0.8.7",
     "body-parser": "^1.15.2",
+    "compression": "^1.6.2",
     "express": "^4.14.0",
     "jsonwebtoken": "^7.1.6",
     "morgan": "^1.7.0",
@@ -51,6 +52,7 @@
     "react": "^15.2.1",
     "react-bootstrap": "^0.29.5",
     "react-dom": "^15.2.1",
+    "react-router": "^2.6.0",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.1",
