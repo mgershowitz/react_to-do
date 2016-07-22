@@ -1,11 +1,16 @@
+### Learning Objectives
+ - [ ] Decompose a static HTML design layout into static React components
+ - [ ] Investigate the difference between Stateful React Classes and Stateless React Functions
+ - [ ] Construct application dependencies for webpack compilation
+   
 
 ###Step 1. Start Ye Some React (Partner Time!)
 
 **Find a partner with whom you have not yet worked**
 
 We need to plan our React components. React components come in two major varieties: 
-  1. Full React components that represent _state_.
-  2. Light-weight components that receive _props_, **but no state**. 
+  1. Full React Class-based components that represent _state_.
+  2. Light-weight Function-based components that receive _props_, **but no state**. 
 
 Open `starter_resources/layout.html` in your favorite browser. 
   1. Diagram the major parts of the application. 
@@ -104,7 +109,7 @@ export default function Nav(props){
 
 Make sure to import this new component in `App.jsx`!
 
-###Step5 The Rest
+###Step 5 The Rest
 
 Repeat the steps above to build out the `Footer`, the `TaskForm` and `TaskList`.
-**Protip** Only the `App` should be a class with state, all the other components should be stateless functional components that accept `props`.  
+**Protip** Only the `App` should be a class with state, all the other components should be stateless functional components that accept `props`.
