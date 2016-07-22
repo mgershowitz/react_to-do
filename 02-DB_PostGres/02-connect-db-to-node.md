@@ -20,7 +20,7 @@ const config = {
 
 const _db = pg(config);
 ```
- 5. Create `.env` file in the root of your server directory with the following contents
+ 5. Create `.env` file in the root of your server directory with the following contents (use your own info here with a real password)
     
 ```
 DB_HOST=localhost
@@ -49,5 +49,4 @@ NODE_ENV=development
 
 ## Test away!
  7. Your new API ONLY accepts `application/json`. Try creating some records. What happens if you delete something?
-
 
