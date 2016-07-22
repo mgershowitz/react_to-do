@@ -1,6 +1,5 @@
 const express     = require('express');
 const tasks       = express.Router();
-const jwt         = require('express-jwt');
 
 /* get the database middleware */
 const db = require('../models/task')
