@@ -1,4 +1,3 @@
-'use strict'
 import React            from 'react';
 
 export default function TaskForm(props) {
@@ -32,7 +31,7 @@ export default function TaskForm(props) {
           <input type="text" className="form-control input-lg" name="task_desc" placeholder="Task Description" />
         </div>
 
-        <button type="submit" className="btn btn-primary btn-lg">Add Task</button>
+        <button type="submit" className="btn btn-info btn-lg">Add Task</button>
       </form>
     </section>
 
