@@ -9,6 +9,7 @@ import TaskList         from './TaskList.jsx'
 // create a React Component called _App_
 export default class App extends React.Component{
 
+  // note that classes do **not** have commas between their methods
   // every class gets a constructor.
   // this is where we init the state.
   constructor() {
@@ -22,14 +23,13 @@ export default class App extends React.Component{
     }
   }
 
-
-  // note that classes do **not** have commas between their methods
-   // note that classes do **not** have commas between their methods
+  /* CREATE a task */
   addTask( newTask ){
 
     // TODO: send this change to the db (ajax)
     newTask.completed = false
     newTask.task_id = Date.now()
+    newTask.deleted = false
 
     // const newState = {...this.state.tasks}
     // newState[newTask.task_id]=newTask
@@ -39,7 +39,15 @@ export default class App extends React.Component{
       previousState.tasks[newTask.task_id]=newTask
       return previousState
     })
+  }
 
+  /* open/close a task. Note, we only need to ID to make this work */
+  toggleTask(task_id){
+    this.setState( previousState=>{
+      // toggle the completed state of the task
+      previousState.tasks[task_id].completed = !previousState.tasks[task_id].completed
+      return previousState
+    })
   }
 
   // 90% of your components will render()
@@ -54,18 +62,32 @@ export default class App extends React.Component{
           <section className="row">
             <TaskForm addTask={this.addTask.bind(this)}/>
             {/*OPEN ITEMS*/}
-            <article className="col-md-6">
+            <article className="col-md-5">
               <h3>Open Items</h3>
-              <TaskList tasks={this.state.tasks}/>
+              <TaskList
+                tasks={this.state.tasks}
+                filter={task=>!task.completed&&!task.deleted}
+                buttonClick={this.toggleTask.bind(this)}/>
             </article>
 
 
             {/* COMPLETED ITEMS */}
-            <article className="col-md-6">
+            <article className="col-md-5">
               <h3>Completed Items</h3>
-              <TaskList tasks={this.state.tasks}/>
+              <TaskList
+                tasks={this.state.tasks}
+                filter={task=>!!task.completed&&!task.deleted }
+                buttonClick={this.toggleTask.bind(this)}/>
             </article>
 
+          {/* DELETED ITEMS */}
+            <article className="col-md-2">
+              <h3>Deleted Items</h3>
+              <TaskList
+                tasks={this.state.tasks}
+                filter={task=>!!task.deleted}
+                buttonClick={this.toggleTask}/>
+            </article>
           </section>
         </div>
         <footer className="footer">

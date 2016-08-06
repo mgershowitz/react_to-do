@@ -9,7 +9,8 @@ export default function TaskList(props){
     <button
       type="button"
       className="list-group-item"
-      key={key}>
+      key={key}
+      onClick={event=>props.buttonClick(key)}>
 
         {/* text on the button */}
         <strong>{props.tasks[key].name}</strong> {props.tasks[key].desc}
@@ -19,7 +20,9 @@ export default function TaskList(props){
 
   return (
     <div className="list-group">
-      {Object.keys(props.tasks).map(createButton)}
+      {Object.keys(props.tasks)
+        .filter(key=>props.filter(props.tasks[key]))
+        .map(createButton)}
     </div>
   )
 
