@@ -18,7 +18,7 @@ export default class App extends React.Component{
 
     // here's our state
     this.state = {
-      tasks : {a:5}
+      tasks : {}
     }
   }
 
@@ -56,14 +56,14 @@ export default class App extends React.Component{
             {/*OPEN ITEMS*/}
             <article className="col-md-6">
               <h3>Open Items</h3>
-              <TaskList />
+              <TaskList tasks={this.state.tasks}/>
             </article>
 
 
             {/* COMPLETED ITEMS */}
             <article className="col-md-6">
               <h3>Completed Items</h3>
-              <TaskList />
+              <TaskList tasks={this.state.tasks}/>
             </article>
 
           </section>
