@@ -13,9 +13,7 @@ export default function TaskForm(props) {
     // fired the App's prop function
     props.addTask(newTask);
 
-    // clear the form
 
-    event.target.reset();
   }
 
   return (

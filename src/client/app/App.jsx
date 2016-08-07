@@ -5,6 +5,7 @@ import Nav              from './Nav.jsx'
 import Footer           from './Footer.jsx'
 import TaskForm         from './TaskForm.jsx'
 import TaskList         from './TaskList.jsx'
+import DeleteButton     from './DeleteButton.jsx'
 
 // create a React Component called _App_
 export default class App extends React.Component{
@@ -50,6 +51,14 @@ export default class App extends React.Component{
     })
   }
 
+  deleteTask(task_id){
+    this.setState( previousState=>{
+      // toggle the completed state of the task
+      previousState.tasks[task_id].deleted = !previousState.tasks[task_id].deleted
+      return previousState
+    })
+  }
+
   // 90% of your components will render()
   // REMEMBER you can only return **one** root element from a render fn.
   render(){
@@ -77,7 +86,10 @@ export default class App extends React.Component{
               <TaskList
                 tasks={this.state.tasks}
                 filter={task=>!!task.completed&&!task.deleted }
-                buttonClick={this.toggleTask.bind(this)}/>
+                buttonClick={this.toggleTask.bind(this)}
+                deleteClick={this.deleteTask.bind(this)}>
+                <DeleteButton/>
+              </TaskList>
             </article>
 
           {/* DELETED ITEMS */}
@@ -86,7 +98,7 @@ export default class App extends React.Component{
               <TaskList
                 tasks={this.state.tasks}
                 filter={task=>!!task.deleted}
-                buttonClick={this.toggleTask}/>
+                buttonClick={this.deleteTask.bind(this)}/>
             </article>
           </section>
         </div>
