@@ -5,13 +5,13 @@ const TaskList = props=>
 
   <div className="list-group">
     {Object.keys(props.tasks)
-      .filter(key=>props.filter(props.tasks[key]))
-      .map(key=>
+      .filter( task_id=> props.filter(props.tasks[task_id]) )
+      .map( task_id=>
         <Task
-          key={key}
-          onClick={event=>props.buttonClick(key)}
-          task={props.tasks[key]}
-          deleteClick={()=>props.deleteClick(key)}
+          key={task_id}
+          onClick={event=>props.buttonClick(task_id)}
+          task={props.tasks[task_id]}
+          deleteClick={()=>props.deleteClick(task_id)}
           children={props.children} />
       )}
   </div>

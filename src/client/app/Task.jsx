@@ -8,8 +8,13 @@ const Task = props=>
     onClick={props.onClick}>
       {/* text on the button */}
       <strong>{props.task.name}</strong> {props.task.desc}
+
+      {/* props.children may NOT be an array, so let's use this convenience function */}
+      {/* see https://facebook.github.io/react/docs/top-level-api.html#react.children */}
       {React.Children.map(props.children, child=>
+        /* We have to clone our children because props are READ-ONLY*/
         React.cloneElement(child, {
+          /* our child needs some behavior*/
           click: props.deleteClick
         })
       )}
