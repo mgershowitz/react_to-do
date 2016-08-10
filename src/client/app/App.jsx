@@ -44,6 +44,9 @@ export default class App extends React.Component{
     })
   }
 
+
+  /*TODO: THIS SHOULD BE REFACTORED, since these are 99% identical */
+
   /* open/close a task. Note, we only need to ID to make this work */
   toggleTask(task_id){
     this.setState( previousState=>{
@@ -88,9 +91,10 @@ export default class App extends React.Component{
               <TaskList
                 tasks={this.state.tasks}
                 filter={task=>!!task.completed&&!task.deleted }
-                buttonClick={this.toggleTask.bind(this)}
-                deleteClick={this.deleteTask.bind(this)}>
-                <DeleteButton/>
+                buttonClick={this.toggleTask.bind(this)}>
+
+                <DeleteButton click={this.deleteTask.bind(this)} />
+
               </TaskList>
             </article>
 

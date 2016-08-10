@@ -1,6 +1,6 @@
-import React            from 'react';
+import React from 'react';
 
-export default function TaskForm(props) {
+const TaskForm = props=> {
 
   const handleSubmit= event=>{
     event.preventDefault();
@@ -13,7 +13,9 @@ export default function TaskForm(props) {
     // fired the App's prop function
     props.addTask(newTask);
 
+    // clear the form
 
+    event.target.reset();
   }
 
   return (
@@ -35,5 +37,10 @@ export default function TaskForm(props) {
 
   )
 
-
 }
+/* PROP TYPES */
+TaskForm.propTypes={
+  addTask: React.PropTypes.func.isRequired
+}
+
+export default TaskForm

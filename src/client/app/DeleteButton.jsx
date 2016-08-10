@@ -16,5 +16,9 @@ const DeleteButton = props=>{
   )
 }
 
+/* PROP TYPES */
+DeleteButton.propTypes={
+  click: React.PropTypes.func.isRequired
+}
 
 export default DeleteButton
