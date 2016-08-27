@@ -13,7 +13,6 @@ const config = {
     path: BUILD_DIR,
     filename: '/js/[name].js',
   },
-
   cache: true,
   debug: true,
   devtool: 'eval-source-map',
@@ -23,6 +22,9 @@ const config = {
   },
 
   plugins: [
+    new webpack.ProvidePlugin({
+      "React": "react",
+    }),
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')

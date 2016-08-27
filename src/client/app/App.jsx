@@ -1,11 +1,11 @@
 // import the libs we need
-import React            from 'react'
 import ReactDOM         from 'react-dom'
 import Nav              from './Nav.jsx'
 import Footer           from './Footer.jsx'
 import TaskForm         from './TaskForm.jsx'
 import TaskList         from './TaskList.jsx'
-import DeleteButton     from './DeleteButton.jsx'
+import IconButton       from './IconButton.jsx'
+import Task             from './Task.jsx'
 
 // create a React Component called _App_
 export default class App extends React.Component{
@@ -44,11 +44,14 @@ export default class App extends React.Component{
     })
   }
 
+  getTask(id){
+    return this.state.tasks[id]
+  }
 
   /*TODO: THIS SHOULD BE REFACTORED, since these are 99% identical */
 
   /* open/close a task. Note, we only need to ID to make this work */
-  toggleTask(task_id){
+  toggleCompleted(task_id){
     this.setState( previousState=>{
       // toggle the completed state of the task
       previousState.tasks[task_id].completed = !previousState.tasks[task_id].completed
@@ -56,7 +59,11 @@ export default class App extends React.Component{
     })
   }
 
-  deleteTask(task_id){
+  convertEdit(task_id){
+    console.log("convertEdit",task_id)
+  }
+
+  toggleDelete(task_id){
     this.setState( previousState=>{
       // toggle the completed state of the task
       previousState.tasks[task_id].deleted = !previousState.tasks[task_id].deleted
@@ -74,37 +81,51 @@ export default class App extends React.Component{
         </header>
         <div className="container">
           <section className="row">
+
+            {/* TASK FORM */}
             <TaskForm addTask={this.addTask.bind(this)}/>
+
+
             {/*OPEN ITEMS*/}
             <article className="col-md-5">
               <h3>Open Items</h3>
+
               <TaskList
-                tasks={this.state.tasks}
-                filter={task=>!task.completed&&!task.deleted}
-                buttonClick={this.toggleTask.bind(this)}/>
+                filter={task=>!task.completed && !task.deleted}
+                onClick={this.toggleCompleted.bind(this)}
+                tasks={this.state.tasks}>
+              </TaskList>
+
             </article>
 
 
             {/* COMPLETED ITEMS */}
             <article className="col-md-5">
               <h3>Completed Items</h3>
+
               <TaskList
-                tasks={this.state.tasks}
-                filter={task=>!!task.completed&&!task.deleted }
-                buttonClick={this.toggleTask.bind(this)}>
-
-                <DeleteButton click={this.deleteTask.bind(this)} />
-
+                filter={task=>!!task.completed && !task.deleted }
+                onClick={this.toggleCompleted.bind(this)}
+                tasks={this.state.tasks}>
+                  <IconButton onClick={this.toggleDelete.bind(this)} icon="trash" />
+                  <IconButton onClick={this.convertEdit.bind(this)} icon="pencil" />
               </TaskList>
+
             </article>
+
 
           {/* DELETED ITEMS */}
             <article className="col-md-2">
               <h3>Deleted Items</h3>
+
               <TaskList
-                tasks={this.state.tasks}
                 filter={task=>!!task.deleted}
-                buttonClick={this.deleteTask.bind(this)}/>
+                onClick={this.toggleDelete.bind(this)}
+                getTask={this.getTask.bind(this)}
+                tasks={this.state.tasks}>
+
+              </TaskList>
+
             </article>
           </section>
         </div>

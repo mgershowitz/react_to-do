@@ -1,4 +1,3 @@
-import React from 'react'
 const Nav = props=>
   <nav className="navbar navbar-inverse navbar-static-top">
     <div className="container-fluid">

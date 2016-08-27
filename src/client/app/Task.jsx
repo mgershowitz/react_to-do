@@ -1,5 +1,3 @@
-import React from 'react'
-
 const Task = props=>
   /* pass props down from our parent */
   <button type="button"
@@ -13,10 +11,5 @@ const Task = props=>
     {props.children}
   </button>
 
-Task.propTypes = {
-  task: React.PropTypes.object.isRequired,
-  onClick: React.PropTypes.func.isRequired,
-  children:React.PropTypes.array,
-};
 
 export default Task
