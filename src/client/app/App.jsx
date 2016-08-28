@@ -83,8 +83,10 @@ export default class App extends React.Component{
           <section className="row">
 
             {/* TASK FORM */}
-            <TaskForm addTask={this.addTask.bind(this)}/>
-
+            <section className="jumbotron">
+              <h1>Task Manager</h1>
+              <TaskForm saveTask={this.addTask.bind(this)}/>
+            </section>
 
             {/*OPEN ITEMS*/}
             <article className="col-md-5">

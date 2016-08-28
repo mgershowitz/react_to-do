@@ -1,6 +1,6 @@
 const TaskForm = props=> {
 
-  const handleSubmit= event=>{
+  const handleSubmit = event=>{
     event.preventDefault();
 
     const newTask ={
@@ -9,7 +9,7 @@ const TaskForm = props=> {
     }
 
     // fired the App's prop function
-    props.addTask(newTask);
+    props.saveTask(newTask);
 
     // clear the form
 
@@ -17,8 +17,6 @@ const TaskForm = props=> {
   }
 
   return (
-    <section className="jumbotron">
-      <h1>Task Manager</h1>
       <form className="form-inline" onSubmit={handleSubmit} >
         <div className="form-group">
           <label className="sr-only" htmlFor="task_name">Task Name</label>
@@ -31,7 +29,6 @@ const TaskForm = props=> {
 
         <button type="submit" className="btn btn-info btn-lg">Add Task</button>
       </form>
-    </section>
 
   )
 
