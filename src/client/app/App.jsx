@@ -5,7 +5,9 @@ import Footer           from './Footer.jsx'
 import TaskForm         from './TaskForm.jsx'
 import TaskList         from './TaskList.jsx'
 import IconButton       from './IconButton.jsx'
-import Task             from './Task.jsx'
+
+/*model*/
+import Task             from './model/Task'
 
 // create a React Component called _App_
 export default class App extends React.Component{
@@ -27,21 +29,14 @@ export default class App extends React.Component{
 
 
   /* CREATE a task */
-  addTask( newTask ){
+  addTask( name,desc ){
 
-    // TODO: send this change to the db (ajax)
-    newTask.completed = false
-    newTask.task_id = Date.now()
-    newTask.deleted = false
+    const newTask = new Task(name,desc)
 
-    // const newState = {...this.state.tasks}
-    // newState[newTask.task_id]=newTask
-    // this.setState(newState)
+    const newState = {...this.state.tasks}
+    newState[newTask.task_id]=newTask
+    this.setState({tasks:newState})
 
-    this.setState( previousState=>{
-      previousState.tasks[newTask.task_id]=newTask
-      return previousState
-    })
   }
 
   getTask(id){

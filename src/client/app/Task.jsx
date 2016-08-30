@@ -5,7 +5,7 @@ const Task = props=>
     onClick={props.onClick}>
 
     {/* text on the button */}
-    <strong>{props.task.name}</strong> {props.task.desc}
+    <strong>{props.task.task_name}</strong> {props.task.task_desc}
 
     {/* any children given to me shall be rendered here */}
     {props.children}
