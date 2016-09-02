@@ -13,5 +13,9 @@ const IconButton = props=>{
   )
 }
 
-export default IconButton
+IconButton.propTypes = {
+  onClick:    React.PropTypes.func.isRequired,
+  icon:       React.PropTypes.string.isRequired,
+}
 
+export default IconButton

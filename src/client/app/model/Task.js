@@ -6,5 +6,6 @@ export default class Task{
     this.task_desc = desc || 'Default Description'
     this.completed = false
     this.deleted = false
+    this.formOpen = false
   }
 }

@@ -39,6 +39,22 @@ export default class App extends React.Component{
 
   }
 
+  updateTask( id,name,desc ){
+
+    const newState = {...this.state.tasks}
+
+    newState[id].task_name = name
+    newState[id].task_desc = desc
+    this.setState({tasks:newState})
+
+  }
+
+  toggleTaskForm(id){
+    const newState = {...this.state.tasks}
+    newState[id].formOpen = !newState[id].formOpen
+    this.setState({tasks:newState})
+  }
+
   getTask(id){
     return this.state.tasks[id]
   }
@@ -52,10 +68,6 @@ export default class App extends React.Component{
       previousState.tasks[task_id].completed = !previousState.tasks[task_id].completed
       return previousState
     })
-  }
-
-  convertEdit(task_id){
-    console.log("convertEdit",task_id)
   }
 
   toggleDelete(task_id){
@@ -80,7 +92,9 @@ export default class App extends React.Component{
             {/* TASK FORM */}
             <section className="jumbotron">
               <h1>Task Manager</h1>
-              <TaskForm saveTask={this.addTask.bind(this)}/>
+              <TaskForm saveTask={this.addTask.bind(this)}>
+                <button type="submit" className="btn btn-danger btn-lg">Add Task</button>
+              </TaskForm>
             </section>
 
             {/*OPEN ITEMS*/}
@@ -90,7 +104,10 @@ export default class App extends React.Component{
               <TaskList
                 filter={task=>!task.completed && !task.deleted}
                 onClick={this.toggleCompleted.bind(this)}
-                tasks={this.state.tasks}>
+                tasks={this.state.tasks}
+                saveTask={this.updateTask.bind(this)}
+                closeTaskForm={this.toggleTaskForm.bind(this)}>
+                <IconButton onClick={this.toggleTaskForm.bind(this)} icon="pencil" />
               </TaskList>
 
             </article>
@@ -103,9 +120,11 @@ export default class App extends React.Component{
               <TaskList
                 filter={task=>!!task.completed && !task.deleted }
                 onClick={this.toggleCompleted.bind(this)}
-                tasks={this.state.tasks}>
+                tasks={this.state.tasks}
+                saveTask={this.updateTask.bind(this)}
+                closeTaskForm={this.toggleTaskForm.bind(this)}>
                   <IconButton onClick={this.toggleDelete.bind(this)} icon="trash" />
-                  <IconButton onClick={this.convertEdit.bind(this)} icon="pencil" />
+                  <IconButton onClick={this.toggleTaskForm.bind(this)} icon="pencil" />
               </TaskList>
 
             </article>
@@ -120,7 +139,7 @@ export default class App extends React.Component{
                 onClick={this.toggleDelete.bind(this)}
                 getTask={this.getTask.bind(this)}
                 tasks={this.state.tasks}>
-
+                <IconButton onClick={this.toggleDelete.bind(this)} icon="remove" />
               </TaskList>
 
             </article>

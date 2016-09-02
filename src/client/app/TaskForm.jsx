@@ -1,5 +1,10 @@
 const TaskForm = props=> {
 
+  const size = props.size || 'lg'
+  const task = props.task || {}
+  const buttonText = props.buttonText || 'Add Task'
+
+
   const handleSubmit = event=>{
     event.preventDefault();
 
@@ -13,20 +18,21 @@ const TaskForm = props=> {
     event.target.reset();
   }
 
+
   return (
       <form className="form-inline" onSubmit={handleSubmit}>
 
         <div className="form-group">
           <label className="sr-only" htmlFor="task_name">Task Name</label>
-          <input type="text" className="form-control input-lg" name="task_name" placeholder="Task Name" />
+          <input type="text" className={`form-control input-${size}`} name="task_name" placeholder="Task Name" defaultValue={task.task_name}/>
         </div>
 
         <div className="form-group">
           <label className="sr-only" htmlFor="task_desc">Task Description</label>
-          <input type="text" className="form-control input-lg" name="task_desc" placeholder="Task Description" />
+          <input type="text" className={`form-control input-${size}`} name="task_desc" placeholder="Task Description" defaultValue={task.task_desc}/>
         </div>
 
-        <button type="submit" className="btn btn-info btn-lg">Add Task</button>
+        {React.Children.map(props.children, child=>child)}
       </form>
 
   )

@@ -11,5 +11,14 @@ const Task = props=>
     {props.children}
   </button>
 
+Task.propTypes = {
+  onClick:    React.PropTypes.func.isRequired,
+  task:      React.PropTypes.object.isRequired,
+  /* we might have a child, or an array of children*/
+  children:   React.PropTypes.oneOfType([
+      React.PropTypes.arrayOf(React.PropTypes.node),
+      React.PropTypes.node
+    ])
+}
 
 export default Task
