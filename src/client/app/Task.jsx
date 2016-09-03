@@ -2,7 +2,7 @@ const Task = props=>
   /* pass props down from our parent */
   <button type="button"
     className="list-group-item"
-    onClick={props.onClick}>
+    onClick={event=>props.onClick(props.id)}>
 
     {/* text on the button */}
     <strong>{props.task.task_name}</strong> {props.task.task_desc}
@@ -12,6 +12,7 @@ const Task = props=>
   </button>
 
 Task.propTypes = {
+  id:         React.PropTypes.string.isRequired,
   onClick:    React.PropTypes.func.isRequired,
   task:       React.PropTypes.object.isRequired,
   /* we might have a child, or an array of children*/

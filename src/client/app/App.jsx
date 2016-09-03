@@ -4,6 +4,7 @@ import Nav              from './Nav.jsx'
 import Footer           from './Footer.jsx'
 import TaskForm         from './TaskForm.jsx'
 import TaskList         from './TaskList.jsx'
+import ToggleableTask   from './ToggleableTask.jsx'
 import IconButton       from './IconButton.jsx'
 
 /*model*/
@@ -103,12 +104,16 @@ export default class App extends React.Component{
 
               <TaskList
                 filter={task=>!task.completed && !task.deleted}
-                onClick={this.toggleCompleted.bind(this)}
                 tasks={this.state.tasks}
-                saveTask={this.updateTask.bind(this)}
-                closeTaskForm={this.toggleTaskForm.bind(this)}>
-
-                <IconButton onClick={this.toggleTaskForm.bind(this)} icon="pencil" />
+                >
+                <ToggleableTask
+                  saveTask={this.updateTask.bind(this)}
+                  closeTaskForm={this.toggleTaskForm.bind(this)}
+                  onClick={this.toggleCompleted.bind(this)}>
+                  <IconButton
+                    onClick={this.toggleTaskForm.bind(this)}
+                    icon="pencil" />
+                </ToggleableTask>
 
               </TaskList>
 
