@@ -92,7 +92,7 @@ export default class App extends React.Component{
             {/* TASK FORM */}
             <section className="jumbotron">
               <h1>Task Manager</h1>
-              <TaskForm saveTask={this.addTask.bind(this)}>
+              <TaskForm saveTask={this.addTask.bind(this)} task={{}}>
                 <button type="submit" className="btn btn-danger btn-lg">Add Task</button>
               </TaskForm>
             </section>
@@ -107,7 +107,9 @@ export default class App extends React.Component{
                 tasks={this.state.tasks}
                 saveTask={this.updateTask.bind(this)}
                 closeTaskForm={this.toggleTaskForm.bind(this)}>
+
                 <IconButton onClick={this.toggleTaskForm.bind(this)} icon="pencil" />
+
               </TaskList>
 
             </article>
@@ -123,8 +125,10 @@ export default class App extends React.Component{
                 tasks={this.state.tasks}
                 saveTask={this.updateTask.bind(this)}
                 closeTaskForm={this.toggleTaskForm.bind(this)}>
+
                   <IconButton onClick={this.toggleDelete.bind(this)} icon="trash" />
                   <IconButton onClick={this.toggleTaskForm.bind(this)} icon="pencil" />
+
               </TaskList>
 
             </article>

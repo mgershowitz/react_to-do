@@ -1,58 +1,54 @@
-import Task from './Task.jsx'
-import TaskForm from './TaskForm.jsx'
+import Task           from './Task.jsx'
+import TaskForm       from './TaskForm.jsx'
 
 const TaskList = props=>{
 
-  function renderTask( task_id ){
+  /* Render a Task */
+  const renderTask = task_id=>{
 
-    /*
-    These are our children (the edit and delete buttons).
-    We have to clone them if we want to give them any attributes.
-    We'll just give each child a taskID, so it can fire its methods in its own context
+    /* If the form is open, render the inline taskForm*/
+    if(props.tasks[task_id].formOpen) {
 
-    We may or may not have children.
-    Luckily React.Children.map iterates over our children (if we have any)
-    */
-    const kids = React.Children.map( props.children, child=>
-      /* props.children is READ-ONLY so we have to clone the supplied child*/
-      React.cloneElement( child, {
-        id:task_id
-      })
-    )
-    const task = props.tasks[task_id];
-
-    if(task.formOpen){
       return (
-        <aside className="well well-sm" key={`${task_id}-form`}>
+        <aside className="well well-sm" key={task_id}>
           <TaskForm
             size="sm"
             saveTask={(name,desc)=>{
               props.saveTask(task_id,name,desc)
               props.closeTaskForm(task_id)
             }}
-            task={task}
-            id={task_id}>
+            task={props.tasks[task_id]}>
+
             <button type="submit" className="btn btn-primary btn-sm">Save</button>
-            <button type="reset" className="btn btn-primary btn-sm" onClick={event=>props.closeTaskForm(task_id)}>Cancel</button>
+            <button type="reset"  className="btn btn-link btn-sm" onClick={event=>props.closeTaskForm(task_id)}>Cancel</button>
+
           </TaskForm>
         </aside>
       )
+
     }
 
+    /*These are our children (the edit and delete buttons).*/
+    const kids = React.Children.map( props.children, child=>
+      /* props.children is READ-ONLY so we have to clone the child in order to give it an ID*/
+      React.cloneElement( child, {
+        id:task_id
+      })
+    )
+
+    /* Otherwise, render the Task */
     return (
       <Task
         onClick={event=>props.onClick(task_id)}
-        task={task}
-        id={task_id}
+        task={props.tasks[task_id]}
         key={task_id}>
         {kids}
       </Task>
     )
-
   }
 
 
-
+  /* Loop over the tasks, fiter out tasks we dont want and render using the functions above */
   return (
     <div className="list-group">
       {Object.keys(props.tasks)
