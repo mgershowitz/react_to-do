@@ -3,7 +3,6 @@ const IconButton = props=>{
     /* kill the link action here */
     event.stopPropagation()
     /*trigger the provided function*/
-    debugger
     props.onClick(props.id)
   }
 

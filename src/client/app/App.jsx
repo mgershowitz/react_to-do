@@ -4,9 +4,8 @@ import Nav              from './Nav.jsx'
 import Footer           from './Footer.jsx'
 import TaskForm         from './TaskForm.jsx'
 import TaskList         from './TaskList.jsx'
-import ToggleableTask   from './ToggleableTask.jsx'
 import IconButton       from './IconButton.jsx'
-
+import ToggleableTask   from './ToggleableTask.jsx'
 /*model*/
 import Task             from './model/Task'
 
@@ -35,7 +34,7 @@ export default class App extends React.Component{
     const newTask = new Task(name,desc)
 
     const newState = {...this.state.tasks}
-    newState[newTask.task_id]=newTask
+    newState[newTask.taskID]=newTask
     this.setState({tasks:newState})
 
   }
@@ -63,18 +62,18 @@ export default class App extends React.Component{
   /*TODO: THIS SHOULD BE REFACTORED, since these are 99% identical */
 
   /* open/close a task. Note, we only need to ID to make this work */
-  toggleCompleted(task_id){
+  toggleCompleted(taskID){
     this.setState( previousState=>{
       // toggle the completed state of the task
-      previousState.tasks[task_id].completed = !previousState.tasks[task_id].completed
+      previousState.tasks[taskID].completed = !previousState.tasks[taskID].completed
       return previousState
     })
   }
 
-  toggleDelete(task_id){
+  toggleDelete(taskID){
     this.setState( previousState=>{
       // toggle the completed state of the task
-      previousState.tasks[task_id].deleted = !previousState.tasks[task_id].deleted
+      previousState.tasks[taskID].deleted = !previousState.tasks[taskID].deleted
       return previousState
     })
   }
@@ -84,18 +83,22 @@ export default class App extends React.Component{
   render(){
     return(
       <container>
+
         <header>
           <Nav />
         </header>
+
         <div className="container">
           <section className="row">
 
             {/* TASK FORM */}
             <section className="jumbotron">
               <h1>Task Manager</h1>
+
               <TaskForm saveTask={this.addTask.bind(this)} task={{}}>
                 <button type="submit" className="btn btn-danger btn-lg">Add Task</button>
               </TaskForm>
+
             </section>
 
             {/*OPEN ITEMS*/}
@@ -104,15 +107,14 @@ export default class App extends React.Component{
 
               <TaskList
                 filter={task=>!task.completed && !task.deleted}
-                tasks={this.state.tasks}
-                >
+                items={this.state.tasks}>
+
                 <ToggleableTask
                   saveTask={this.updateTask.bind(this)}
                   closeTaskForm={this.toggleTaskForm.bind(this)}
                   onClick={this.toggleCompleted.bind(this)}>
                   <IconButton
-                    onClick={this.toggleTaskForm.bind(this)}
-                    icon="pencil" />
+                    onClick={this.toggleTaskForm.bind(this)} icon="pencil" />
                 </ToggleableTask>
 
               </TaskList>
@@ -126,16 +128,19 @@ export default class App extends React.Component{
 
               <TaskList
                 filter={task=>!!task.completed && !task.deleted }
-                onClick={this.toggleCompleted.bind(this)}
-                tasks={this.state.tasks}
-                saveTask={this.updateTask.bind(this)}
-                closeTaskForm={this.toggleTaskForm.bind(this)}>
+                items={this.state.tasks}>
+
+                <ToggleableTask
+                  onClick={this.toggleCompleted.bind(this)}
+                  saveTask={this.updateTask.bind(this)}
+                  closeTaskForm={this.toggleTaskForm.bind(this)}>
 
                   <IconButton onClick={this.toggleDelete.bind(this)} icon="trash" />
                   <IconButton onClick={this.toggleTaskForm.bind(this)} icon="pencil" />
 
-              </TaskList>
+                </ToggleableTask>
 
+              </TaskList>
             </article>
 
 
@@ -145,18 +150,23 @@ export default class App extends React.Component{
 
               <TaskList
                 filter={task=>!!task.deleted}
-                onClick={this.toggleDelete.bind(this)}
-                getTask={this.getTask.bind(this)}
-                tasks={this.state.tasks}>
-                <IconButton onClick={this.toggleDelete.bind(this)} icon="remove" />
+                items={this.state.tasks}>
+
+                <ToggleableTask onClick={this.toggleDelete.bind(this)}>
+                  <IconButton onClick={this.toggleDelete.bind(this)} icon="remove" />
+                </ToggleableTask>
+
               </TaskList>
 
             </article>
+
           </section>
         </div>
+
         <footer className="footer">
           <Footer />
         </footer>
+
       </container>
       )
   }

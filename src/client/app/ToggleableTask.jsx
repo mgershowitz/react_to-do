@@ -5,7 +5,7 @@ import Task from './Task.jsx'
 const ToggleableTask = props=>{
 
   // pass-thru my props down to Task if I'm closed
-  if(!props.task.isOpen){
+  if(!props.task.formOpen){
     return <Task {...props} />
   }
 
@@ -40,4 +40,4 @@ Task.propTypes = {
               ])
 }
 
-export default Task
+export default ToggleableTask
