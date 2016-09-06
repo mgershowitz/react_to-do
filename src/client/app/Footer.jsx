@@ -1,14 +1,9 @@
 
-import React from 'react';
-
 const Footer = props=>
-  <footer>
-    <div className="footer-copyright">
-      <div className="container">
-        <p>Made with <span className="glyphicon glyphicon-heart"></span> by <a href="https://generalassemb.ly/instructors/jason-seminara/6831">Jason Seminara</a> in 2016 for <span className="gaLogo"></span> in New York City.</p>
-      </div>
+  <div className="footer-copyright">
+    <div className="container">
+      <p>Made with <span className="glyphicon glyphicon-heart"></span> by <a href="https://generalassemb.ly/instructors/jason-seminara/6831">Jason Seminara</a> in 2016 for <span className="gaLogo"></span> in New York City.</p>
     </div>
-  </footer>
-//write your function here
+  </div>
+export default Footer
 
-export default Footer;

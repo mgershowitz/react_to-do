@@ -1,46 +1,43 @@
-import React from 'react';
-
-export default function TaskList(props){
-
-  // we need to give the delete button a function of the signature: (event){}
-  // however, for the function to operate properly, we need the specific button's key and props
-  // we'll create a closure that takes the key and props and returns a fn reference.
-  const clickDelete = key=> event=>{
-    event.stopPropagation();
-    props.deleteTask(key);
-  }
-
-
-  return(
-    <div className="list-group">
-    {Object.keys( props.list )
-      .filter( key=>
-        props.sortBy( props.list[key].completed )
-      )
-      .map(key=>
-        <button
-          type="button"
-          className="list-group-item"
-          key={key}
-          onClick={event=>props.action(key)}>
-
-          <strong>{props.list[key].task_name}</strong> {props.list[key].task_desc}
-
-          {/* Iterate over the children and bind their clicks to this key  */}
-          {/* We have to clone the child b/c props are immutable, and we need a unique fn assigned to this child */}
-          {
-            React.Children.map(props.children, child=>
-              React.cloneElement(child, {
-                onClick: clickDelete(key)
-              })
-            )
-          }
-        </button>
-      )
-    }
-
-    </div>
+function cloneItem(taskID, props, propsContext){
+  return React.Children.map( props.children, child=>
+    /* props.children is READ-ONLY so we have to clone the child in order to give it an ID*/
+    React.cloneElement(
+      child,
+      propsContext,
+      cloneItem(taskID, child.props, propsContext)
+    )
   )
-
 }
 
+const TaskList = props=>{
+
+  /* Loop over the items, fiter out items we dont want and render using the functions above */
+  return (
+    <div className="list-group">
+      {Object.keys(props.items)
+        .filter( taskID=> props.filter(props.items[taskID]) )
+        .map( taskID=>
+          cloneItem(taskID, props, {
+            id:taskID,
+            task:props.items[taskID]
+          })
+        )
+      }
+    </div>
+  )
+}
+
+
+
+TaskList.propTypes = {
+  items:      React.PropTypes.object.isRequired,
+  filter:     React.PropTypes.func.isRequired,
+
+  /* we might have a child, or an array of children*/
+  children:   React.PropTypes.oneOfType([
+                React.PropTypes.arrayOf(React.PropTypes.node),
+                React.PropTypes.node
+              ])
+};
+
+export default TaskList

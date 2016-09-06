@@ -7,21 +7,30 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const BUILD_DIR         = path.resolve(__dirname, 'dist');
 const APP_DIR           = path.resolve(__dirname, 'src/client/app');
 
-module.exports = {
-  entry: `${APP_DIR}/main.jsx`,
+
+const config = {
+  entry: `${APP_DIR}/main.js`,
   output: {
     path: BUILD_DIR,
     filename: '/js/[name].js',
   },
-
+  cache: true,
+  debug: true,
+  devtool: 'eval-source-map',
+  stats: {
+    colors: true,
+    reasons: true
+  },
 
   plugins: [
-/*    new webpack.optimize.UglifyJsPlugin({
-      compress:{
-        warnings: true
+    new webpack.ProvidePlugin({
+      "React": "react",
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
       }
-    }),*/
-    new webpack.optimize.CommonsChunkPlugin('/js/common.js'),
+    }),
     new HtmlWebpackPlugin({
       title: 'Tasks',
       xhtml: true,
@@ -35,15 +44,14 @@ module.exports = {
   ],
 
   module : {
-
     loaders: [
       { test: /\.css$/,  loader: ExtractTextPlugin.extract('style-loader', 'css-loader') },
       { test: /\.(png|gif|jpg)$/,  loader: 'file-loader?name=/images/[name].[ext]' },
-      { test: /\.jsx?$/, loader: 'babel'       },
+      { test: /\.ico$/,  loader: 'file-loader?name=/[name].[ext]' },
+      { test: /\.jsx?$/, loader: 'babel' },
       {
         test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url-loader?limit=100&mimetype=application/font-woff&name=/fonts/[name].[ext]'
-
       },
       {
         test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
@@ -61,3 +69,30 @@ module.exports = {
   }
 };
 
+
+if( process.env &&
+  process.env.NODE_ENV &&
+  process.env.NODE_ENV == 'production'){
+
+  const prodPlugins = [
+    new webpack.optimize.UglifyJsPlugin({
+      compress:{
+        warnings: true
+      },
+      output: {
+        comments: false,
+      }
+    }),
+    new webpack.optimize.CommonsChunkPlugin('/js/common.js')
+  ]
+
+  config.plugins = config.plugins.concat(prodPlugins)
+
+  config.cache= false;
+  config.debug= false;
+  config.devtool= undefined;
+
+
+}
+
+ module.exports = config;

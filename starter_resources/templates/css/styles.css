@@ -31,17 +31,18 @@ h1,h2,h3,h4,h5,h6{
 .navbar-right, .navbar-last{
   margin-right: 10em;
 }
+.glyphicon-pencil:after,
+span.glyphicon-pencil{
+  padding-right: 5px!important;
+  content: " ";
+}
+
 .githubBanner{
   position: absolute;
   top: 0;
   right: 0;
   border: 0;
 }
-
-.glyphicon-pencil{
-  padding-right: 5px!important;
-}
-
 .footer {
   position: absolute;
   bottom: 0;
